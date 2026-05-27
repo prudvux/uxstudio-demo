@@ -1,0 +1,211 @@
+
+<h2 class="sr-only">Table showing input fields for each UXstudio agent, organized by prompt, add context, key fields, and additional details</h2>
+
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; }
+.wrap { padding: 1rem 0 2rem; font-family: var(--font-sans); }
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.filter-btn { padding: 5px 14px; border-radius: 999px; border: 0.5px solid var(--color-border-secondary); font-size: 12px; background: var(--color-background-primary); color: var(--color-text-secondary); cursor: pointer; }
+.filter-btn.active { background: #EEEDFE; border-color: #AFA9EC; color: #3C3489; }
+.tbl-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+th { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 12px; border-bottom: 0.5px solid var(--color-border-secondary); text-align: left; background: var(--color-background-secondary); }
+th:nth-child(1) { width: 160px; }
+th:nth-child(2) { width: 80px; }
+th:nth-child(3) { width: 80px; }
+th:nth-child(4) { width: 170px; }
+th:nth-child(5) { width: 200px; }
+td { padding: 10px 12px; vertical-align: top; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); line-height: 1.5; }
+tr:hover td { background: var(--color-background-secondary); }
+.agent-name { font-weight: 500; font-size: 13px; color: var(--color-text-primary); }
+.cat-badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 999px; margin-top: 4px; font-weight: 400; }
+.cat-research { background: #E1F5EE; color: #085041; }
+.cat-alignment { background: #E6F1FB; color: #0C447C; }
+.cat-design { background: #EEEDFE; color: #3C3489; }
+.cat-workflow { background: #FAEEDA; color: #633806; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px 2px 2px 0; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-primary); }
+.tag.required { background: #EEEDFE; border-color: #AFA9EC; color: #3C3489; }
+.tag.optional { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+.tag.file { background: #E1F5EE; border-color: #9FE1CB; color: #085041; }
+.tag.toggle { background: #FAEEDA; border-color: #FAC775; color: #633806; }
+.always-pill { font-size: 11px; color: var(--color-text-tertiary); font-style: italic; }
+.section-row td { background: var(--color-background-tertiary); font-size: 11px; font-weight: 500; color: var(--color-text-secondary); letter-spacing: 0.04em; text-transform: uppercase; padding: 6px 12px; }
+tr.hidden { display: none; }
+</style>
+
+<div class="wrap">
+  <div class="filter-bar" id="filters">
+    <button class="filter-btn active" onclick="filter('all', this)">All agents</button>
+    <button class="filter-btn" onclick="filter('alignment', this)">Alignment</button>
+    <button class="filter-btn" onclick="filter('research', this)">Research</button>
+    <button class="filter-btn" onclick="filter('design', this)">Design</button>
+    <button class="filter-btn" onclick="filter('workflow', this)">Scenarios & workflows</button>
+  </div>
+
+  <div class="tbl-scroll">
+  <table id="main-table">
+    <thead>
+      <tr>
+        <th>Agent</th>
+        <th>Prompt</th>
+        <th>Add context</th>
+        <th>Key fields</th>
+        <th>Additional details (collapsed)</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr class="section-row"><td colspan="5">Alignment</td></tr>
+
+      <tr data-cat="alignment">
+        <td><div class="agent-name">UX Engagement Assessment</div><span class="cat-badge cat-alignment">Alignment</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><div class="tag file">Source docs</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">PRD, BRD, RFP, scope docs</div></td>
+        <td><div class="tag required">Client</div><div class="tag required">Domain / industry</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+      <tr data-cat="alignment">
+        <td><div class="agent-name">UX Requirements Extraction</div><span class="cat-badge cat-alignment">Alignment</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><div class="tag file">Source docs</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">Transcripts, PRD, BRD, analytics, interview notes</div></td>
+        <td><div class="tag required">Client</div><div class="tag required">Domain / industry</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+      <tr data-cat="alignment">
+        <td><div class="agent-name">Design Brief</div><span class="cat-badge cat-alignment">Alignment</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><div class="tag file">UX requirements doc</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">Optional</div></td>
+        <td><div class="tag required">Client</div><div class="tag required">Domain / industry</div><div class="tag required">Key experiences</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">e.g. Search, Checkout, Booking</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+      <tr class="section-row"><td colspan="5">Research</td></tr>
+
+      <tr data-cat="research">
+        <td><div class="agent-name">Secondary Research</div><span class="cat-badge cat-research">Research</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+        <td><div class="tag required">Client</div><div class="tag required">Domain / industry</div></td>
+        <td><div class="tag optional">Product / platform name</div></td>
+      </tr>
+
+      <tr data-cat="research">
+        <td><div class="agent-name">Ecosystem Map</div><span class="cat-badge cat-research">Research</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+        <td><div class="tag required">Client</div><div class="tag required">Domain / industry</div><div class="tag required">System to map</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">e.g. "Clinic management system", "Insurance claims portal"</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+      <tr data-cat="research">
+        <td><div class="agent-name">User Persona</div><span class="cat-badge cat-research">Research</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+        <td><div class="tag required">User / role</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">e.g. Doctor, Patient</div></td>
+        <td><div class="tag optional">Client</div><div class="tag optional">Domain / industry</div></td>
+      </tr>
+
+      <tr data-cat="research">
+        <td><div class="agent-name">Journey Map</div><span class="cat-badge cat-research">Research</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+        <td><div class="tag required">User / role</div><div class="tag required">Experience to map</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">e.g. "Patient booking an appointment"</div></td>
+        <td><div class="tag optional">Client</div><div class="tag optional">Domain / industry</div></td>
+      </tr>
+
+      <tr data-cat="research">
+        <td><div class="agent-name">Experience Roadmap</div><span class="cat-badge cat-research">Research</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+        <td><div class="tag required">Client</div><div class="tag required">Domain / industry</div><div class="tag required">User / role</div></td>
+        <td><div class="tag toggle">Include user insights?</div><div class="tag toggle">Include business insights?</div><div class="tag toggle">Allow online research?</div></td>
+      </tr>
+
+      <tr data-cat="research">
+        <td><div class="agent-name">Research Plan</div><span class="cat-badge cat-research">Research</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><div class="tag file">Discussion guide</div><div class="tag file">Stimuli / prototypes</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">Optional</div></td>
+        <td><div class="tag required">Client</div><div class="tag required">Domain / industry</div><div class="tag required">Research intent</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">What are you trying to learn?</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+      <tr data-cat="research">
+        <td><div class="agent-name">Research Note Taking</div><span class="cat-badge cat-research">Research</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><div class="tag file">Session recording / transcript</div><div class="tag file">Discussion guide</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">Guide is optional</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+      <tr data-cat="research">
+        <td><div class="agent-name">Research Synthesis</div><span class="cat-badge cat-research">Research</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><div class="tag file">Consolidated notes</div><div class="tag file">Research plan</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">Plan is optional</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+      <tr class="section-row"><td colspan="5">Scenarios & workflows</td></tr>
+
+      <tr data-cat="workflow">
+        <td><div class="agent-name">Scenarios</div><span class="cat-badge cat-workflow">Workflows</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><div class="tag file">Experience roadmap</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">Optional</div></td>
+        <td><div class="tag required">User / role</div><div class="tag required">Scenarios to expand</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">[trigger] by [how user attempts it]</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+      <tr data-cat="workflow">
+        <td><div class="agent-name">Consolidated Workflows</div><span class="cat-badge cat-workflow">Workflows</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><div class="tag file">User workflows</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">Covers user, scenario + flow</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+      <tr class="section-row"><td colspan="5">Design</td></tr>
+
+      <tr data-cat="design">
+        <td><div class="agent-name">Wireframes</div><span class="cat-badge cat-design">Design</span></td>
+        <td><span class="always-pill">Always</span></td>
+        <td><div class="tag file">Workflows</div><div class="tag file">Visual references</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">Both optional</div></td>
+        <td><div class="tag required">Device type</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;">Web / Mobile / Tablet</div></td>
+        <td><span style="color:var(--color-text-tertiary);font-size:12px;">—</span></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <div style="margin-top:1.25rem;display:flex;gap:16px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary);">
+      <span class="tag required" style="margin:0;">Field</span> Required key field
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary);">
+      <span class="tag optional" style="margin:0;">Field</span> Optional field
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary);">
+      <span class="tag file" style="margin:0;">File</span> File / doc upload
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary);">
+      <span class="tag toggle" style="margin:0;">Toggle</span> Yes/No toggle
+    </div>
+  </div>
+</div>
+
+<script>
+function filter(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#main-table tbody tr[data-cat]').forEach(row => {
+    if (cat === 'all' || row.dataset.cat === cat) {
+      row.classList.remove('hidden');
+    } else {
+      row.classList.add('hidden');
+    }
+  });
+}
+</script>
